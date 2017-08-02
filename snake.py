@@ -18,9 +18,10 @@ food_pos = []
 food_stamps = []
 
 snake = turtle.clone()
-snake.shape("square")
+snake.shape("circle")
 turtle.hideturtle()
 
+snake.color("red")
 for i in range(start_len):
     x_pos = snake.pos()[0]
     y_pos = snake.pos()[-1]
@@ -112,9 +113,11 @@ def move_snake():
     if new_y_pos <= DOWN_EDGE:
         print("you lose :(")
         quit()    
-    turtle.ontimer(move_snake,TIME_STEP)
-  
-################################################################################################12345678910
+
+    if pos_list[-1] in pos_list[:-1]:
+        print("dont hit yourself!!!!")
+        quit()
+################################################################################################1
 #specialllll!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     global food_stamps , food_pos
     if snake.pos() in food_pos:
@@ -123,18 +126,23 @@ def move_snake():
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         print("you ate a turtle!!!!")
+        makefood()
 
-        
+
+    turtle.ontimer(move_snake,TIME_STEP)     
 move_snake()
 #food
 
 food = turtle.clone()
+food.color("green")
 food.shape("turtle")
 food_pos = [(100,100) , (-100,100) , (-100, -100) , (100,-100)]
 for this_food_pos in food_pos:
     food.goto(this_food_pos[0], this_food_pos[1])
     stamp_number = food.stamp()
     food_stamps.append(stamp_number)
+def snake_grow():
+    stamp_list.append(snake.stamp()) 
 def makefood():
     min_x = -int(SIZE_X/2/sq_size)+1
     max_x = int(SIZE_X/2/sq_size)-1
@@ -142,10 +150,11 @@ def makefood():
     max_y = int(SIZE_Y/2/sq_size)+1
     food_x = random.randint(min_x,max_x)*sq_size
     food_y = random.randint(min_y,max_y)*sq_size
-    
-    
-
-
+    food.goto(food_x,food_y)
+    stood = food.stamp()
+    food_stamps.append(stood)
+    food_pos.append(food.pos())
+    snake_grow()
 
 
 
