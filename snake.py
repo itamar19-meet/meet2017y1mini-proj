@@ -114,6 +114,7 @@ def move_snake():
         quit()    
 
     if pos_list[-1] in pos_list[0:-1]:
+
         print("dont hit yourself!!!!")
         quit()
 
@@ -142,13 +143,22 @@ for this_food_pos in food_pos:
     stamp_number = food.stamp()
     food_stamps.append(stamp_number)
 def snake_grow():
-    stamp_list.append(snake.stamp()) 
+    stamp_list.append(snake.stamp())
+    pos_list.append(snake.pos())
+    
+count = 0
+def counter():
+    turtle.goto(280,270)
+    turtle.clear()
+    turtle.write("score: " + str(count) , font =( "Arial" , 16 , "normal"))
+    turtle.ontimer(counter,1000)
+    turtle.color("white")
 def makefood():
     global count
     min_x = -int(SIZE_X/2/sq_size)+1
     max_x = int(SIZE_X/2/sq_size)-1
-    min_y = -int(SIZE_Y/2/sq_size)-1
-    max_y = int(SIZE_Y/2/sq_size)+1
+    min_y = -int(SIZE_Y/2/sq_size)+1
+    max_y = int(SIZE_Y/2/sq_size)-1
     food_x = random.randint(min_x,max_x)*sq_size
     food_y = random.randint(min_y,max_y)*sq_size
     food.goto(food_x,food_y)
@@ -156,15 +166,15 @@ def makefood():
     food_stamps.append(stood)
     food_pos.append(food.pos())
     snake_grow()
-   #count = count + 1
-##   print(count)
-    
-#turtle.write(str(count) , font =( "Arial" , 16 , "normal"))
-#score_count = turtle.write("score:" , font =( "Arial" , 16 , "normal"))
+    count = count + 1
+    print(count)
+    counter()
+turtle.bgcolor("black")
 
-
-
-
+#if #int(count) == 50:
+   #print("omg you are so goooooood!!!!!!!!")
+   # good = turtle.write("omg you are so goof!!" , font =( "Arial" , 16 , "normal"))
+    #good.clear()
 
 
 
