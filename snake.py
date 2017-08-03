@@ -3,8 +3,8 @@ import random
 
 turtle.tracer(1,0)
 #map size
-SIZE_X=800
-SIZE_Y=500
+SIZE_X=1000
+SIZE_Y=700
 turtle.setup(SIZE_X,SIZE_Y)
 
 turtle.penup()
@@ -43,10 +43,10 @@ DOWN = 1
 LEFT = 2
 RIGHT = 3
 direction = UP
-UP_EDGE = 250
-DOWN_EDGE = -250
-RIGHT_EDGE = 400
-LEFT_EDGE = -400
+UP_EDGE = SIZE_Y/2
+DOWN_EDGE = -SIZE_Y/2
+RIGHT_EDGE = SIZE_X/2
+LEFT_EDGE = -SIZE_X/2
 def up():
     global direction
     direction = UP
@@ -65,7 +65,6 @@ def left():
 def right():
     global direction
     direction = RIGHT
-    
     print("you pressed right key")
 turtle.onkeypress(up , UP_ARROW)
 turtle.listen()    
@@ -114,9 +113,10 @@ def move_snake():
         print("you lose :(")
         quit()    
 
-    if pos_list[-1] in pos_list[:-1]:
+    if pos_list[-1] in pos_list[0:-1]:
         print("dont hit yourself!!!!")
         quit()
+
 ################################################################################################1
 #specialllll!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     global food_stamps , food_pos
@@ -132,7 +132,7 @@ def move_snake():
     turtle.ontimer(move_snake,TIME_STEP)     
 move_snake()
 #food
-
+count = 0
 food = turtle.clone()
 food.color("green")
 food.shape("turtle")
@@ -144,6 +144,7 @@ for this_food_pos in food_pos:
 def snake_grow():
     stamp_list.append(snake.stamp()) 
 def makefood():
+    global count
     min_x = -int(SIZE_X/2/sq_size)+1
     max_x = int(SIZE_X/2/sq_size)-1
     min_y = -int(SIZE_Y/2/sq_size)-1
@@ -155,6 +156,12 @@ def makefood():
     food_stamps.append(stood)
     food_pos.append(food.pos())
     snake_grow()
+   #count = count + 1
+##   print(count)
+    
+#turtle.write(str(count) , font =( "Arial" , 16 , "normal"))
+#score_count = turtle.write("score:" , font =( "Arial" , 16 , "normal"))
+
 
 
 
